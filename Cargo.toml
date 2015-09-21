@@ -1,0 +1,4 @@
+[package]
+name = "minimax"
+version = "0.1.0"
+authors = ["Helge Skogly Holm <helge.holm@gmail.com>"]
