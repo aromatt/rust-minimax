@@ -15,9 +15,13 @@ impl Game<i32, i32, f32> for TestGame {
         moves
     }
     
-    fn eval(&self, state: i32) -> f32 {
+    fn eval(&self, state: i32, my_turn: bool) -> f32 {
         if state == 100 {
-            -1.0
+            if my_turn {
+                -1.0
+            } else {
+                1.0
+            }
         } else {
             0.0
         }
@@ -30,6 +34,6 @@ impl Game<i32, i32, f32> for TestGame {
 
 fn main() {
     let g = TestGame;
-    let muv = Minimax::best_move(100, &g, 95);
+    let muv = Minimax::best_move(100, &g, 96);
     println!("helo thar: {}", muv);
 }
