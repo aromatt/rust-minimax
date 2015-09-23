@@ -37,6 +37,7 @@ fn main() {
     let g = TestGame;
     let mut state = 0;
     loop {
+        println!("Rule: The player who adds the 30th pebble to the imaginary pile, loses.");
         println!("{} pebbles.", state);
         let mut player_add = String::new();
         println!("Add 1, 2, 3 or 5 pebbles?");
