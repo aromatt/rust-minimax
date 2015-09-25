@@ -28,22 +28,25 @@ impl Minimax {
             return (None, game.eval(root, min));
         }
         
-        let (first, rest) = moves.split_at(1);
-
-        let mut muu: Move = first[0];
-        let (_sub_move, mut bezt) = Minimax::min_max(depth - 1, game, game.apply(root, muu), !min);
-        for &m in rest {
-            let new_state = game.apply(root, m);
-            let (_sub_move, vallie) = Minimax::min_max(depth - 1, game, new_state, !min);
-            if (!min && vallie > bezt) || 
-                (min && vallie < bezt)
-            {
-                bezt = vallie;
-                muu = m;
+        let best: (Option<Move>, Option<Value>) = moves.iter().fold((None, None), |acc, &item| {
+            let new_state = game.apply(root, item);
+            let (_sub_move, sub_value) = Minimax::min_max(depth - 1, game, new_state, !min);
+            if let (Some(acc_move), Some(acc_value)) = acc {
+                if (!min && sub_value > acc_value) || 
+                    (min && sub_value < acc_value)
+                {
+                    return (Some(item), Some(sub_value));
+                } else {
+                    return (Some(acc_move), Some(acc_value));
+                }
+            } else {
+                return acc;
             }
-        }
+        });
 
-        (Some(muu), bezt)
+        let (mv, val) = best;
+        let val = val.expect("no moves?");
+        (mv, val)
     }
 }
 
