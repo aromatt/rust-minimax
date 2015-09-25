@@ -40,7 +40,7 @@ impl Minimax {
                     return (Some(acc_move), Some(acc_value));
                 }
             } else {
-                return acc;
+                return (Some(item), Some(sub_value));
             }
         });
 
