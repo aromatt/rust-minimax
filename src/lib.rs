@@ -1,7 +1,7 @@
 pub trait Game<State: Clone, Move: Clone, Value: PartialOrd> {
     fn get_moves(&self, &State) -> Vec<Move>;
     fn eval(&self, &State, my_turn: bool) -> Value;
-    fn apply(&self, &State, &Move) -> State;
+    fn apply(&self, &State, Move) -> State;
 }
 
 pub struct Minimax;
@@ -29,7 +29,7 @@ impl Minimax {
         }
 
         let best: (Option<Move>, Option<Value>) = moves.iter().fold((None, None), |acc, item| {
-            let new_state = game.apply(root, &item);
+            let new_state = game.apply(root, item.clone());
             let (_sub_move, sub_value) = Minimax::min_max(depth - 1, game, &new_state, !min);
             if let (Some(acc_move), Some(acc_value)) = acc {
                 if (!min && sub_value > acc_value) ||

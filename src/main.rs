@@ -28,8 +28,8 @@ impl Game<i32, i32, f32> for TestGame {
         }
     }
 
-    fn apply(&self, state: &i32, m: &i32) -> i32 {
-        *state + *m
+    fn apply(&self, state: &i32, m: i32) -> i32 {
+        *state + m
     }
 }
 
