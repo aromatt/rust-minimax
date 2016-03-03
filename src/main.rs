@@ -62,7 +62,7 @@ fn main() {
             break;
         }
 
-        let muv = Minimax::best_move(10, &g, state);
+        let muv = Minimax::best_move(10, &g, &state);
         println!("I add {}.", muv);
         state += muv;
         if state >= 30 {

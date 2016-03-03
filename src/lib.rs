@@ -9,9 +9,9 @@ pub struct Minimax;
 impl Minimax {
     pub fn best_move
         <State: Clone, Move: Clone, Value: PartialOrd, GameType: Game<State, Move, Value>>
-        (depth: i32, game: &GameType, root: State) -> Move
+        (depth: i32, game: &GameType, root: &State) -> Move
     {
-        let (mv, _score) = Minimax::min_max(depth, game, &root, false);
+        let (mv, _score) = Minimax::min_max(depth, game, root, false);
         mv.expect("no moves")
     }
 
