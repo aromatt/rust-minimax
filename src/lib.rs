@@ -4,6 +4,7 @@ pub trait Game<State: Clone, Move: Copy> {
     fn get_moves(&self, &State) -> Vec<Move>;
     fn eval(&self, &State, my_turn: bool) -> i32;
     fn apply(&self, &State, Move) -> State;
+    fn gameover(&self, &State) -> bool;
 }
 
 pub struct Minimax;
@@ -22,10 +23,14 @@ impl Minimax {
         where State: Clone,
               Move: Copy,
               GameType: Game<State, Move> {
+
+        // Don't need to do anything if depth is 0, someone has won, or there are no moves
         if depth == 0 {
             return (None, game.eval(root, do_min));
         }
-
+        if game.gameover(root) {
+            return (None, game.eval(root, do_min));
+        }
         let moves = game.get_moves(root);
         if moves.len() == 0 {
             return (None, game.eval(root, do_min));
