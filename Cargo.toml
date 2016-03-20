@@ -1,5 +1,5 @@
 [package]
 name = "minimax"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Helge Skogly Holm <helge.holm@gmail.com>",
            "Andrew Matteson <amatteson3@gmail.com>"]
