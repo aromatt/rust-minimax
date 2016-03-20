@@ -6,25 +6,25 @@ use std::io;
 
 struct TestGame;
 
-impl Game<i32, i32, f32> for TestGame {
+impl Game<i32, i32> for TestGame {
     fn get_moves(&self, root: &i32) -> Vec<i32> {
         let mut moves = Vec::new();
-        if *root < 30 { moves.push(1); }
-        if *root < 29 { moves.push(2); }
-        if *root < 28 { moves.push(3); }
-        if *root < 26 { moves.push(5); }
+        if *root < 10 { moves.push(1); }
+        if *root < 9 { moves.push(2); }
+        if *root < 8 { moves.push(3); }
+        if *root < 6 { moves.push(5); }
         moves
     }
 
-    fn eval(&self, state: &i32, my_turn: bool) -> f32 {
-        if *state == 30 {
+    fn eval(&self, state: &i32, my_turn: bool) -> i32 {
+        if *state == 10 {
             if my_turn {
-                -1.0
+                -1
             } else {
-                1.0
+                1
             }
         } else {
-            0.0
+            0
         }
     }
 
@@ -36,7 +36,7 @@ impl Game<i32, i32, f32> for TestGame {
 fn main() {
     let g = TestGame;
     let mut state = 0;
-    println!("Rule: The player who adds the 30th pebble to the imaginary pile, loses.");
+    println!("Rule: The player who adds the 10th pebble to the imaginary pile, loses.");
     loop {
         println!("{} pebbles.", state);
         let mut player_add = String::new();
@@ -57,15 +57,15 @@ fn main() {
 
         state += player_add;
         println!("{} pebbles.", state);
-        if state >= 30 {
-            println!("You passed 30 and lost!");
+        if state >= 10 {
+            println!("You passed 10 and lost!");
             break;
         }
 
-        let muv = Minimax::best_move(10, &g, &state);
-        println!("I add {}.", muv);
-        state += muv;
-        if state >= 30 {
+        let mv = Minimax::best_move(5, &g, &state);
+        println!("I add {}.", mv);
+        state += mv;
+        if state >= 10 {
             println!("You won!");
             break;
         }
